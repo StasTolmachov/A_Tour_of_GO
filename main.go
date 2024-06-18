@@ -132,22 +132,53 @@
 //		fmt.Println("Колись буде..")
 //	}
 //}
+//
+//package main
+//
+//import (
+//	"fmt"
+//	"time"
+//)
+//
+//func main() {
+//	t := time.Now()
+//	switch {
+//	case t.Hour() < 12:
+//		fmt.Println("Доброго ранку!")
+//	case t.Hour() < 17:
+//		fmt.Println("Добрий день.")
+//	default:
+//		fmt.Println("Добрий вечір.")
+//	}
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//func main() {
+//	fmt.Println("1")
+//	defer fmt.Println("2")
+//	fmt.Println("3")
+//	defer fmt.Println("4")
+//	fmt.Println("5")
+//
+//}
 
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "fmt"
 
 func main() {
-	t := time.Now()
-	switch {
-	case t.Hour() < 12:
-		fmt.Println("Доброго ранку!")
-	case t.Hour() < 17:
-		fmt.Println("Добрий день.")
-	default:
-		fmt.Println("Добрий вечір.")
-	}
+	var a, b = 2, 3
+	fmt.Println("a = ", a, "\nb = ", b)
+
+	p := &a
+	fmt.Println("p := &a:", p, "\n*p:", *p)
+	fmt.Println("____________")
+
+	fmt.Println("p = ", p)
+	fmt.Println("&p = ", &p)
+	fmt.Println("*p = ", *p)
+
 }
