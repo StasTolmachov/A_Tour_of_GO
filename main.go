@@ -164,21 +164,155 @@
 //	fmt.Println("5")
 //
 //}
+//
+//package main
+//
+//import "fmt"
+//
+//func main() {
+//	var a, b = 2, 3
+//	fmt.Println("a = ", a, "\nb = ", b)
+//
+//	p := &a
+//	fmt.Println("p := &a:", p, "\n*p:", *p)
+//	fmt.Println("____________")
+//
+//	fmt.Println("p = ", p)   // p =  0xc000094018
+//	fmt.Println("&p = ", &p) // &p =  0xc0000a2020
+//	fmt.Println("*p = ", *p) // *p =  2
+//
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//type Vertex struct {
+//	X int
+//	Y int
+//}
+//
+//func main() {
+//	var v Vertex
+//
+//	v.X = 4
+//	fmt.Println(v.X)
+//
+//	p := &v
+//
+//	fmt.Println(*p)
+//	p.Y = 5
+//	fmt.Println(*p)
+//
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//type Vertex struct {
+//	X, Y int
+//}
+//
+//var (
+//	v1 = Vertex{1, 2}  // має тип Vertex
+//	v2 = Vertex{X: 1}  // Y:0 є неявним
+//	v3 = Vertex{}      // X:0 та Y:0
+//	p  = &Vertex{1, 2} // має тип *Vertex
+//)
+//
+//func main() {
+//	fmt.Println(v1, p, v2, v3)
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//func main() {
+//	var a [2]string
+//	a[0] = "Привіт"
+//	a[1] = "Світ"
+//	fmt.Println(a[0], a[1])
+//	fmt.Println(a)
+//
+//	primes := [6]int{2, 3, 5, 7, 11, 13}
+//	fmt.Println(primes)
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//func main() {
+//	a := [5]int{1, 2, 3, 4, 5}
+//	fmt.Println("arr: ", a)
+//	s := a[2:4]
+//	fmt.Println(s)
+//}
+//
+//package main
+//
+//import "fmt"
+//
+//func main() {
+//	q := []int{2, 3, 5, 7, 11, 13}
+//	fmt.Println(q)
+//
+//	r := []bool{true, false, true, true, false, true}
+//	fmt.Println(r)
+//
+//	s := []struct {
+//		i int
+//		b bool
+//	}{
+//		{2, true},
+//		{3, false},
+//		{5, true},
+//		{7, true},
+//		{11, false},
+//		{13, true},
+//	}
+//	fmt.Println(s)
+//}
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+	"unsafe"
+)
 
 func main() {
-	var a, b = 2, 3
-	fmt.Println("a = ", a, "\nb = ", b)
+	// Создаем срез с помощью make
+	s2 := make([]int, 5)
+	fmt.Println(s2)
+	fmt.Println("Длина:", len(s2), "Емкость:", cap(s2))
+	fmt.Println("__________________________________________________")
 
-	p := &a
-	fmt.Println("p := &a:", p, "\n*p:", *p)
-	fmt.Println("____________")
+	// Печать указателя на срез
+	fmt.Println("Указатель на срез:", &s2)
 
-	fmt.Println("p = ", p)
-	fmt.Println("&p = ", &p)
-	fmt.Println("*p = ", *p)
+	// Используем unsafe.Pointer и reflect.SliceHeader для получения базового массива
+	sliceHeader := (*reflect.SliceHeader)(unsafe.Pointer(&s2))
+	baseArrayPtr := unsafe.Pointer(sliceHeader.Data)
+	fmt.Println("Указатель на базовый массив:", baseArrayPtr)
 
+	// Печать адресов элементов среза для сравнения
+	for i := 0; i < len(s2); i++ {
+		fmt.Printf("Адрес элемента %d: %p\n", i, &s2[i])
+	}
+	/*
+	   [0 0 0 0 0]
+	   	Длина: 5 Емкость: 5
+	   	__________________________________________________
+	   	Указатель на срез: 0xc000004078
+	   	Указатель на базовый массив: 0xc00000a0a0
+	   	Адрес элемента 0: 0xc00000a0a0
+	   	Адрес элемента 1: 0xc00000a0a8
+	   	Адрес элемента 2: 0xc00000a0b0
+	   	Адрес элемента 3: 0xc00000a0b8
+	   	Адрес элемента 4: 0xc00000a0c0
+	*/
 }
