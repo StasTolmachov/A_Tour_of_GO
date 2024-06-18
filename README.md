@@ -1,2 +1,2 @@
 # A_Tour_of_GO
-https://go-tour-ua-translation.lm.r.appspot.com/flowcontrol/12
+https://go-tour-ua-translation.lm.r.appspot.com/moretypes/18
