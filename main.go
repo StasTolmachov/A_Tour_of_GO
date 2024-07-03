@@ -1,14 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type NV struct {
+type TV struct {
 	Text string
 	Var  interface{}
 }
 
 // printNamedValueAndType
-func pvtt(nv NV) {
+func pvtt(nv TV) {
 	fmt.Println("__________________________________________________")
 	fmt.Printf("text: %s\nvalue: %v\ntype: %T\n", nv.Text, nv.Var, nv.Var)
 	fmt.Println("__________________________________________________")
@@ -425,7 +428,6 @@ func pvt(v interface{}) {
 //		}
 //		fmt.Println(m["Bell Labs"])
 //	}
-//
 //type MyType struct {
 //	a, b int
 //}
@@ -444,12 +446,49 @@ func pvt(v interface{}) {
 //
 //	fmt.Printf("value: %v\ntype: %T\n", MyMap, MyMap)
 //
-//	pvtt(NV{Var: MyMap})
+//	pvtt(TV{Var: MyMap})
 //	pvt(MyMap)
 //
-//	pvtt(NV{Text: "first", Var: MyMap["first"]})
+//	pvtt(TV{Text: "first", Var: MyMap["first"]})
+//
+//	elem, ok := MyMap["third"]
+//
+//	if ok == true {
+//		pvtt(TV{"elem", elem})
+//		pvtt(TV{"ok", ok})
+//	} else {
+//		pvtt(TV{"ok", ok})
+//	}
+//
+//}
+//
+//func main() {
+//	str := "my first stroke"
+//
+//	countStr := strings.Fields(str)
+//	pvt(countStr)
+//	fmt.Println(len(countStr))
+//
+//	for i := 0; i < len(countStr); i++ {
+//		fmt.Println(countStr[i])
+//	}
 //}
 
 func main() {
+	str := "I ate a donut. Then I ate another donut."
 
+	pvt(WordCount(str))
+}
+func WordCount(s string) map[string]int {
+	sliceStr := strings.Fields(s)
+	tempMap := make(map[string]int)
+	for i := 0; i < len(sliceStr); i++ {
+		_, ok := tempMap[sliceStr[i]]
+
+		tempMap[sliceStr[i]] = 1
+		if ok {
+			tempMap[sliceStr[i]]++
+		}
+	}
+	return tempMap
 }
