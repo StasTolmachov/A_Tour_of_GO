@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 type TV struct {
@@ -428,67 +427,86 @@ func pvt(v interface{}) {
 //		}
 //		fmt.Println(m["Bell Labs"])
 //	}
-//type MyType struct {
-//	a, b int
-//}
 //
-//var MyMap map[string]MyType
-//
-//func main() {
-//	MyMap = make(map[string]MyType)
-//	fmt.Print("init map make: ", MyMap)
-//
-//	MyMap["first"] = MyType{11, 12}
-//	MyMap["second"] = MyType{21, 22}
-//	fmt.Print("\nadd first and second: ", MyMap, "\n")
-//
-//	fmt.Print("only first b: ", MyMap["first"].b, "\n")
-//
-//	fmt.Printf("value: %v\ntype: %T\n", MyMap, MyMap)
-//
-//	pvtt(TV{Var: MyMap})
-//	pvt(MyMap)
-//
-//	pvtt(TV{Text: "first", Var: MyMap["first"]})
-//
-//	elem, ok := MyMap["third"]
-//
-//	if ok == true {
-//		pvtt(TV{"elem", elem})
-//		pvtt(TV{"ok", ok})
-//	} else {
-//		pvtt(TV{"ok", ok})
+//	type MyType struct {
+//		a, b int
 //	}
 //
-//}
+// var MyMap map[string]MyType
 //
-//func main() {
-//	str := "my first stroke"
+//	func main() {
+//		MyMap = make(map[string]MyType)
+//		fmt.Print("init map make: ", MyMap)
 //
-//	countStr := strings.Fields(str)
-//	pvt(countStr)
-//	fmt.Println(len(countStr))
+//		MyMap["first"] = MyType{11, 12}
+//		MyMap["second"] = MyType{21, 22}
+//		fmt.Print("\nadd first and second: ", MyMap, "\n")
 //
-//	for i := 0; i < len(countStr); i++ {
-//		fmt.Println(countStr[i])
+//		fmt.Print("only first b: ", MyMap["first"].b, "\n")
+//
+//		fmt.Printf("value: %v\ntype: %T\n", MyMap, MyMap)
+//
+//		pvtt(TV{Var: MyMap})
+//		pvt(MyMap)
+//
+//		pvtt(TV{Text: "first", Var: MyMap["first"]})
+//
+//		elem, ok := MyMap["third"]
+//
+//		if ok == true {
+//			pvtt(TV{"elem", elem})
+//			pvtt(TV{"ok", ok})
+//		} else {
+//			pvtt(TV{"ok", ok})
+//		}
+//
+// }
+//
+//	func main() {
+//		str := "my first stroke"
+//
+//		countStr := strings.Fields(str)
+//		pvt(countStr)
+//		fmt.Println(len(countStr))
+//
+//		for i := 0; i < len(countStr); i++ {
+//			fmt.Println(countStr[i])
+//		}
 //	}
-//}
+//
+//	func main() {
+//		str := "I ate a donut. Then I ate another donut."
+//
+//		pvt(WordCount(str))
+//	}
+//
+//	func WordCount(s string) map[string]int {
+//		sliceStr := strings.Fields(s)
+//		tempMap := make(map[string]int)
+//		for i := 0; i < len(sliceStr); i++ {
+//			_, ok := tempMap[sliceStr[i]]
+//
+//			tempMap[sliceStr[i]] = 1
+//			if ok {
+//				tempMap[sliceStr[i]]++
+//			}
+//		}
+//		return tempMap
+//	}
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
 
 func main() {
-	str := "I ate a donut. Then I ate another donut."
-
-	pvt(WordCount(str))
-}
-func WordCount(s string) map[string]int {
-	sliceStr := strings.Fields(s)
-	tempMap := make(map[string]int)
-	for i := 0; i < len(sliceStr); i++ {
-		_, ok := tempMap[sliceStr[i]]
-
-		tempMap[sliceStr[i]] = 1
-		if ok {
-			tempMap[sliceStr[i]]++
-		}
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(
+			pos(i),
+			neg(-2*i),
+		)
 	}
-	return tempMap
 }
