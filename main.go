@@ -1,3 +1,27 @@
+package main
+
+import "fmt"
+
+type NV struct {
+	Text string
+	Var  interface{}
+}
+
+// printNamedValueAndType
+func pvtt(nv NV) {
+	fmt.Println("__________________________________________________")
+	fmt.Printf("text: %s\nvalue: %v\ntype: %T\n", nv.Text, nv.Var, nv.Var)
+	fmt.Println("__________________________________________________")
+}
+
+// printValueAndType example: value: 5 type: int
+func pvt(v interface{}) {
+	fmt.Println("__________________________________________________")
+	fmt.Printf("value: %v\ntype: %T\n", v, v)
+	fmt.Println("__________________________________________________")
+
+}
+
 // package main
 //
 // import (
@@ -352,30 +376,80 @@
 //			fmt.Println("s2 == nil")
 //		}
 //	}
-package main
-
-import (
-	"golang.org/x/tour/pic"
-)
-
-// Pic функция генерирует изображение
-func Pic(dx, dy int) [][]uint8 {
-	// Создаем двумерный срез
-	image := make([][]uint8, dy)
-	for y := 0; y < dy; y++ {
-		// Создаем срез для каждой строки
-		image[y] = make([]uint8, dx)
-		for x := 0; x < dx; x++ {
-			// Используем одну из функций для генерации значения
-			// image[y][x] = uint8((x + y) / 2)
-			// image[y][x] = uint8(x * y)
-			image[y][x] = uint8(x ^ y)
-		}
-	}
-	return image
-}
+//
+// package main
+//
+// import (
+//
+//	"golang.org/x/tour/pic"
+//
+// )
+//
+// // Pic функция генерирует изображение
+//
+//	func Pic(dx, dy int) [][]uint8 {
+//		// Создаем двумерный срез
+//		image := make([][]uint8, dy)
+//		for y := 0; y < dy; y++ {
+//			// Создаем срез для каждой строки
+//			image[y] = make([]uint8, dx)
+//			for x := 0; x < dx; x++ {
+//				// Используем одну из функций для генерации значения
+//				// image[y][x] = uint8((x + y) / 2)
+//				// image[y][x] = uint8(x * y)
+//				image[y][x] = uint8(x ^ y)
+//			}
+//		}
+//		return image
+//	}
+//
+//	func main() {
+//		// Используем функцию Pic из пакета tour для отображения изображения
+//		pic.Show(Pic)
+//	}
+//
+// package main
+//
+// import "fmt"
+//
+//	type Vertex struct {
+//		Lat, Long float64
+//	}
+//
+// var m map[string]Vertex
+//
+//	func main() {
+//		m = make(map[string]Vertex)
+//		m["Bell Labs"] = Vertex{
+//			40.68433, -74.39967,
+//		}
+//		fmt.Println(m["Bell Labs"])
+//	}
+//
+//type MyType struct {
+//	a, b int
+//}
+//
+//var MyMap map[string]MyType
+//
+//func main() {
+//	MyMap = make(map[string]MyType)
+//	fmt.Print("init map make: ", MyMap)
+//
+//	MyMap["first"] = MyType{11, 12}
+//	MyMap["second"] = MyType{21, 22}
+//	fmt.Print("\nadd first and second: ", MyMap, "\n")
+//
+//	fmt.Print("only first b: ", MyMap["first"].b, "\n")
+//
+//	fmt.Printf("value: %v\ntype: %T\n", MyMap, MyMap)
+//
+//	pvtt(NV{Var: MyMap})
+//	pvt(MyMap)
+//
+//	pvtt(NV{Text: "first", Var: MyMap["first"]})
+//}
 
 func main() {
-	// Используем функцию Pic из пакета tour для отображения изображения
-	pic.Show(Pic)
+
 }
