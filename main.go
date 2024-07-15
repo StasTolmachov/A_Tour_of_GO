@@ -493,20 +493,61 @@ func pvt(v interface{}) {
 //		}
 //		return tempMap
 //	}
-func adder() func(int) int {
-	sum := 0
-	return func(x int) int {
-		sum += x
-		return sum
-	}
+//
+//	func adder() func(int) int {
+//		sum := 0
+//		return func(x int) int {
+//			sum += x
+//			return sum
+//		}
+//	}
+//
+//	func main() {
+//		pos, neg := adder(), adder()
+//		for i := 0; i < 10; i++ {
+//			fmt.Println(
+//				pos(i),
+//				neg(-2*i),
+//			)
+//		}
+//	}
+
+// Определение интерфейса Shape
+type Shape interface {
+	Area() float64
+}
+
+// Определение типа Circle
+type Circle struct {
+	Radius float64
+}
+
+// Реализация метода Area для типа Circle
+func (c Circle) Area() float64 {
+	return 3.14 * c.Radius * c.Radius
+}
+
+// Определение типа Rectangle
+type Rectangle struct {
+	Width, Height float64
+}
+
+// Реализация метода Area для типа Rectangle
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+// Функция для вывода площади фигуры
+func printArea(s Shape) {
+	fmt.Printf("Area: %.2f\n", s.Area())
 }
 
 func main() {
-	pos, neg := adder(), adder()
-	for i := 0; i < 10; i++ {
-		fmt.Println(
-			pos(i),
-			neg(-2*i),
-		)
-	}
+	// Создание экземпляров Circle и Rectangle
+	c := Circle{Radius: 5}
+	r := Rectangle{Width: 3, Height: 4}
+
+	// Вызов функции printArea для каждого экземпляра
+	printArea(c)
+	printArea(r)
 }
